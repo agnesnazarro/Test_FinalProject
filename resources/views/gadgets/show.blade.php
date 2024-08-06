@@ -34,8 +34,8 @@
         </tr>
     </table>
     <a href="{{ route('gadgets.index') }}" class="btn btn-primary">Back to List</a>
-    <a href="{{ route('gadgets.edit', $gadget->id) }}" class="btn btn-warning">Edit</a>
-    <form action="{{ route('gadgets.destroy', $gadget->id) }}" method="POST" style="display:inline-block;">
+    <a href="{{ route('gadgets.edit', $gadgets->id) }}" class="btn btn-warning">Edit</a>
+    <form action="{{ route('gadgets.destroy', $gadgets->id) }}" method="POST" style="display:inline-block;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
