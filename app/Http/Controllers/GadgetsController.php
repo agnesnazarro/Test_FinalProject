@@ -22,7 +22,7 @@ class GadgetsController extends Controller
     // Store a newly created gadget in the database
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'brand_name' => 'required|string',
             'item_name' => 'required|string',
             'category' => 'required|string',
@@ -30,8 +30,11 @@ class GadgetsController extends Controller
             'quantity' => 'required|numeric',
             'purchase_date' => 'required|date|date_format:Y-m-d',
         ]);
+        
+        $gadget = Gadgets::create($validated);
 
-        Gadgets::create($data);
+        // Debugging
+        \Log::info('Gadget added:', $gadget->toArray());
         return redirect()->route('gadgets.index')->with('success', 'Gadget added successfully');
     }
 

@@ -19,7 +19,6 @@
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Purchase Date</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
