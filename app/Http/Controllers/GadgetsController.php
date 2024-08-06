@@ -7,14 +7,16 @@ use App\Models\Gadgets;
 
 class GadgetsController extends Controller
 {
-    public function index(){
-        
+    public function index()
+    {
+
         $gadgets = Gadgets::all();
         return view('gadgets.index', compact('gadgets'));
     }
 
     // Show the form for creating a new gadget
-    public function create(){
+    public function create()
+    {
 
         return view('gadgets.create');
     }
@@ -24,32 +26,32 @@ class GadgetsController extends Controller
     {
         $validated = $request->validate([
             'brand_name' => 'required|string',
-            'item_name' => 'required|string',
+            'gadget_name' => 'required|string',
             'category' => 'required|string',
             'description' => 'required|string',
             'quantity' => 'required|numeric',
             'purchase_date' => 'required|date|date_format:Y-m-d',
         ]);
-        
-        $gadget = Gadgets::create($validated);
+
+        $gadgets = Gadgets::create($validated);
 
         // Debugging
-        \Log::info('Gadget added:', $gadget->toArray());
+        \Log::info('Gadget added:', $gadgets->toArray());
         return redirect()->route('gadgets.index')->with('success', 'Gadget added successfully');
     }
 
     // Display the specified gadget
     public function show($id)
     {
-        $gadget = Gadgets::findOrFail($id);
-        return view('gadgets.show', compact('gadget'));
+        $gadgets = Gadgets::findOrFail($id);
+        return view('gadgets.show', compact('gadgets'));
     }
 
     // Show the form for editing the specified gadget
     public function edit($id)
     {
-        $gadget = Gadgets::findOrFail($id);
-        return view('gadgets.edit', compact('gadget'));
+        $gadgets = Gadgets::findOrFail($id);
+        return view('gadgets.edit', compact('gadgets'));
     }
 
     // Update the specified gadget in the database
@@ -64,16 +66,16 @@ class GadgetsController extends Controller
             'purchase_date' => 'required|date|date_format:Y-m-d',
         ]);
 
-        $gadget = Gadgets::findOrFail($id);
-        $gadget->update($data);
+        $gadgets = Gadgets::findOrFail($id);
+        $gadgets->update($data);
         return redirect()->route('gadgets.index')->with('success', 'Gadget updated successfully');
     }
 
     // Remove the specified gadget from the database
     public function destroy($id)
     {
-        $gadget = Gadgets::findOrFail($id);
-        $gadget->delete();
+        $gadgets = Gadgets::findOrFail($id);
+        $gadgets->delete();
         return redirect()->route('gadgets.index')->with('success', 'Gadget deleted successfully');
     }
 
