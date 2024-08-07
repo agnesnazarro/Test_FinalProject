@@ -1,55 +1,72 @@
 @extends('gadgets.home')
 
 @section('content')
-<div class="container mx-auto p-4 md:p-6 lg:p-8">
-    <h1 class="text-3xl font-bold mb-4">Edit Gadget</h1>
+<main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <section>
+        <header>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                {{ __('Edit Gadget') }}
+            </h2>
 
-    @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                {{ __("Edit a gadget in your collection.") }}
+            </p>
+        </header>
 
-    <form action="{{ route('gadgets.update', $gadgets->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="brand_name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Brand Name:</label>
-                <input type="text" name="brand_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" value="{{ old('brand_name', $gadgets->brand_name) }}">
+        <form method="post" action="{{ route('gadgets.update', $gadgets->id) }}" class="mt-6 space-y-6">
+            @csrf
+            @method('PUT')
+
+            <div>
+                <x-input-label for="brand_name" :value="__('Brand Name')" />
+                <x-text-input id="brand_name" name="brand_name" type="text" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" :value="old('brand_name', $gadgets->brand_name)" required autofocus autocomplete="brand_name" />
+                <x-input-error class="mt-2" :messages="$errors->get('brand_name')" />
             </div>
-            <div class="w-full md:w-1/2 px-3">
-                <label for="gadget_name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Gadget Name:</label>
-                <input type="text" name="gadget_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" value="{{ old('gadget_name', $gadgets->gadget_name) }}">
+
+            <div>
+                <x-input-label for="gadget_name" :value="__('Gadget Name')" />
+                <x-text-input id="gadget_name" name="gadget_name" type="text" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" :value="old('gadget_name', $gadgets->gadget_name)" required autocomplete="gadget_name" />
+                <x-input-error class="mt-2" :messages="$errors->get('gadget_name')" />
             </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="category" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Category:</label>
-                <input type="text" name="category" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" value="{{ old('category', $gadgets->category) }}">
+
+            <div>
+                <x-input-label for="category" :value="__('Category')" />
+                <x-text-input id="category" name="category" type="text" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" :value="old('category', $gadgets->category)" required autocomplete="category" />
+                <x-input-error class="mt-2" :messages="$errors->get('category')" />
             </div>
-            <div class="w-full md:w-1/2 px-3">
-                <label for="quantity" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Quantity:</label>
-                <input type="number" name="quantity" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" value="{{ old('quantity', $gadgets->quantity) }}">
+
+            <div>
+                <x-input-label for="description" :value="__('Description')" />
+                <textarea id="description" name="description" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">{{ old('description', $gadgets->description) }}</textarea>
+                <x-input-error class="mt-2" :messages="$errors->get('description')" />
             </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="description" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Description:</label>
-                <textarea name="description" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white">{{ old('description', $gadgets->description) }}</textarea>
+
+            <div>
+                <x-input-label for="quantity" :value="__('Quantity')" />
+                <x-text-input id="quantity" name="quantity" type="number" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" :value="old('quantity', $gadgets->quantity)" required autocomplete="quantity" />
+                <x-input-error class="mt-2" :messages="$errors->get('quantity')" />
             </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="purchase_date" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Purchase Date:</label>
-                <input type="date" name="purchase_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" value="{{ old('purchase_date', $gadgets->purchase_date) }}">
+
+            <div>
+                <x-input-label for="purchase_date" :value="__('Purchase Date')" />
+                <x-text-input id="purchase_date" name="purchase_date" type="date" class="mt-1 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" :value="old('purchase_date', $gadgets->purchase_date)" required autocomplete="purchase_date" />
+                <x-input-error class="mt-2" :messages="$errors->get('purchase_date')" />
             </div>
-        </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update Gadget</button>
-    </form>
-</div>
+
+            <div class="flex items-center gap-4 justify-end">
+                <x-primary-button>{{ __('Update Gadget') }}</x-primary-button>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </form>
+    </section>
+</main>
 @endsection
