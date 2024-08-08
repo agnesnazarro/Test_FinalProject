@@ -4,6 +4,10 @@ use App\Http\Controllers\GadgetsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -21,10 +25,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gadgets/{gadget}/edit', [GadgetsController::class, 'edit'])->name('gadgets.edit');
     Route::put('/gadgets/{gadget}', [GadgetsController::class, 'update'])->name('gadgets.update');
     Route::delete('/gadgets/{gadget}', [GadgetsController::class, 'destroy'])->name('gadgets.destroy');
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
 require __DIR__ . '/auth.php';
