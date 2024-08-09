@@ -55,6 +55,12 @@
                 <x-primary-button>{{ __('Update Gadget') }}</x-primary-button>
             </div>
 
+            <div class="flex items-center gap-4 justify-end">
+                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="history.back()">
+                    {{ __('Cancel') }}
+                </button>
+            </div>
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
